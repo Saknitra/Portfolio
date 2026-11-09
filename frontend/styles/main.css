@@ -4,8 +4,8 @@
 /* Definition of base styles. */
 :root {
     /* colors */
-    --color-white: #ffffff;
-    --color-black: #000000;
+    --color-white: #F7F5F0;
+    --color-black: #1E1E1E;
     --color-accent: #ff0000;
     /* gaps & sizes */
     --gap-around: 40px;
@@ -16,7 +16,7 @@
 /* Styling of all available layout components. */
 [data-layout="header"] {
     padding: var(--gap-around);
-    background-color: var(--color-accent);
+    background-color: var(--color-black);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -41,7 +41,7 @@
 }
 [data-layout="footer"] {
     padding: var(--gap-around);
-    background-color: var(--color-accent);
+    background-color: var(--color-black);
     .nav-container {
         .nav {
             list-style: none;
@@ -100,6 +100,9 @@
         font: var(--font-h1);
         text-align: center;
     }
+}
+[data-module="hero_front"] {
+
 }
 
 /* Styling of all available teaser components. */
