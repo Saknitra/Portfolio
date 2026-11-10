@@ -351,6 +351,10 @@ function render_modules (): void {
     if (empty($modules)) {
         return;
     }
+
+    // → Hilfsfunktion: wandelt eine Mediathek-ID in ein Array um (oder null, wenn keine ID da ist)
+    $media = fn ($id, $size = 'full') => !empty($id) ? get_media_by_id($id, $size) : null;
+
     foreach ($modules as $module) {
         // → Modifiziere die Daten des Moduls, falls nötig, basierend auf dem Modultyp
         switch ($module['_type']) {
