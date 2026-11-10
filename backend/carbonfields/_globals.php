@@ -15,5 +15,26 @@ Container::make('theme_options', 'Globales')
                 //Field::make('image', 'icon', 'Icon')
             ])
             ->set_header_template('<% if (title) { %> <%- title %> <% } %>')
+            ->set_layout('tabbed-vertical'),
+
+        // -> Zusammenarbeit CTA
+        Field::make('separator', 'cta_separator', 'Zusammenarbeit CTA'),
+        Field::make('text', 'cta_handwriting', 'Handschrift'),
+        Field::make('text', 'cta_title', 'Titel')->set_required(),
+        Field::make('text', 'cta_lead', 'Lead'),
+        Field::make('complex', 'cta_keywords', 'Stichwörter')
+            ->set_layout('tabbed-horizontal')
+            ->add_fields([
+                Field::make('text', 'keyword', 'Stichwort')->set_required(),
+            ]),
+        Field::make('complex', 'cta_columns', 'Spalten')
             ->set_layout('tabbed-vertical')
+            ->add_fields([
+                Field::make('text', 'label', 'Label')->set_required(),
+                Field::make('textarea', 'text', 'Text')->set_rows(3),
+            ])
+            ->set_header_template('<% if (label) { %> <%- label %> <% } %>'),
+        Field::make('text', 'cta_button_text', 'Button-Text'),
+        Field::make('text', 'cta_button_url', 'Button-URL')
+            ->set_attribute('type', 'url'),
     ]);

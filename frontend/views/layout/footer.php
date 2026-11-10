@@ -1,29 +1,32 @@
 <?php
-$menu = get_menu_by_slug('legals');
+$menu    = get_menu_by_slug('legals');
 $socials = get_globals_socials();
-js_log($socials);
-$socials = get_globals_socials();
-js_log($socials);
 ?>
+
+<?php if (!is_page(['impressum', 'datenschutz'])) : ?>
+    <?php get_template_part('frontend/views/layout/cta'); ?>
+<?php endif; ?>
 
 <footer data-layout="footer">
     <div class="socials">
         <?php foreach ($socials as $item) : ?>
-            <a target="_blank" href="<?= $item['link'] ?>" aria-label="Link zu <?= $item['title'] ?>">
-<!--                 <img src="--><?php //= $item['icon']['src'] ?><!--" alt="--><?php //= $item['icon']['alt'] ?><!--"> -->
-                <?= $item['title'] ?>
+            <a target="_blank" href="<?= esc_url($item['link']) ?>" aria-label="Link zu <?= esc_attr($item['title']) ?>">
+                <?= esc_html($item['title']) ?>
             </a>
         <?php endforeach; ?>
     </div>
+
     <nav class="nav-container">
         <ul class="nav">
-            <?php foreach ($menu as $item): ?>
+            <?php foreach ($menu as $item) : ?>
                 <li class="nav-item">
-                    <a target="<?= $item['target'] ?>" href= "<?= $item['url'] ?>">
-                            <?= $item['title'] ?>
+                    <a target="<?= esc_attr($item['target']) ?>" href="<?= esc_url($item['url']) ?>">
+                        <?= esc_html($item['title']) ?>
                     </a>
                 </li>
             <?php endforeach; ?>
         </ul>
     </nav>
+
+    <p class="copyright">© <?= date('Y') ?> Saknitra</p>
 </footer>
