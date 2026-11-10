@@ -102,9 +102,11 @@ Container::make('post_meta', 'Module')
 
             // -> Sektionskopf
             ->add_fields('section_header', 'Sektionskopf', [
-                Field::make('text', 'handwriting', 'Handschrift')->set_required(),
+                Field::make('text', 'handwriting', 'Handschrift'),
                 Field::make('text', 'title', 'Titel')->set_required(),
-                Field::make('textarea', 'lead', 'Lead'),
+                Field::make('text', 'lead', 'Lead (optional)'),
+                Field::make('text', 'anchor', 'Anker (optional)')
+                    ->set_help_text('Für Sprungmarken, z. B. "geschichte". Nur Kleinbuchstaben, ohne Leerzeichen.'),
             ])
 
             //-> Videogalerie
@@ -377,6 +379,16 @@ function render_modules (): void {
 
             case 'overview_about_me':
                 $module['introductionfoto'] = $media($module['introductionfoto']);
+                break;
+
+            case 'worldchoice':
+                $module['worldbox'] = array_map(function ($world) use ($media) {
+                    $world['icons'] = array_map(function ($icon) use ($media) {
+                        $icon['icon'] = $media($icon['icon']);
+                        return $icon;
+                    }, $world['icons'] ?? []);
+                    return $world;
+                }, $module['worldbox'] ?? []);
                 break;
 
             case 'teaser_together':

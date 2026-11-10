@@ -1,6 +1,5 @@
 <?php
 $data = $args['data'];
-js_log($data);
 ?>
 
 <section data-module="hero_front">
@@ -10,12 +9,23 @@ js_log($data);
         </video>
     <?php endif; ?>
 
-    <p class="surtitle"><?= esc_html($data['surtitle']) ?></p>
-    <h1 class="title"><?= esc_html($data['title']) ?></h1>
-    <div class="worlds">
-        <?php foreach ($data['worlds'] as $item) : ?>
-            <span><?= esc_html($item['world']) ?></span>
-        <?php endforeach; ?>
+    <div class="content">
+        <?php if (!empty($data['surtitle'])) : ?>
+            <p class="surtitle"><?= esc_html($data['surtitle']) ?></p>
+        <?php endif; ?>
+
+        <h1 class="title"><?= esc_html($data['title']) ?></h1>
+
+        <?php if (!empty($data['worlds'])) : ?>
+            <ul class="worlds">
+                <?php foreach ($data['worlds'] as $item) : ?>
+                    <li><?= esc_html($item['world']) ?></li>
+                <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+
+        <?php if (!empty($data['handwriting'])) : ?>
+            <p class="handwriting"><?= esc_html($data['handwriting']) ?></p>
+        <?php endif; ?>
     </div>
-    <p class="handwriting"><?= esc_html($data['handwriting']) ?></p>
 </section>
