@@ -355,12 +355,66 @@ function render_modules (): void {
         // → Modifiziere die Daten des Moduls, falls nötig, basierend auf dem Modultyp
         switch ($module['_type']) {
             case 'example':
-                $module['image'] = get_media_by_id($module['image'], 'full');
+                $module['image'] = $media($module['image']);
                 break;
+
             case 'hero_front':
-                $module['video'] = get_media_by_id($module['video'], 'full');
+                $module['video'] = $media($module['video']);
                 break;
-                // todo: add data modifications for modules here as a new case
+
+            case 'hero_subpage':
+                $module['video'] = $media($module['video']);
+                $module['icon']  = $media($module['icon']);
+                break;
+
+            case 'hero_about':
+                $module['portrait'] = $media($module['portrait']);
+                break;
+
+            case 'overview_about_me':
+                $module['introductionfoto'] = $media($module['introductionfoto']);
+                break;
+
+            case 'teaser_together':
+                $module['icon'] = $media($module['icon']);
+                break;
+
+            case 'origin':
+                $module['icon'] = $media($module['icon']);
+                break;
+
+            case 'project_highlight':
+                $module['thumbnail'] = $media($module['thumbnail']);
+                break;
+
+            case 'video_gallery':
+                $module['items'] = array_map(function ($item) use ($media) {
+                    $item['thumbnail'] = $media($item['thumbnail']);
+                    return $item;
+                }, $module['items'] ?? []);
+                break;
+
+            case 'story_steps':
+                $module['stations'] = array_map(function ($station) use ($media) {
+                    $station['icon'] = $media($station['icon']);
+                    return $station;
+                }, $module['stations'] ?? []);
+                break;
+
+            case 'hubs':
+                $module['cards'] = array_map(function ($card) use ($media) {
+                    $card['icon'] = $media($card['icon']);
+                    return $card;
+                }, $module['cards'] ?? []);
+                break;
+
+            case 'recap_meetup':
+                $module['photos'] = array_values(array_filter(
+                    array_map($media, $module['photos'] ?? [])
+                ));
+                break;
+
+            // todo: add data modifications for modules here as a new case
         }
         // → Laden des Templates basierend auf dem Modultyp und weitergeben der Daten
         get_template_part(
